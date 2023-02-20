@@ -5,6 +5,8 @@
 # https://www.openmp.org/spec-html/5.1/openmpse59.html#x325-5000006.2
 # https://www.openmp.org/spec-html/5.1/openmpse67.html#x333-5080006.10
 
+# https://github.com/openjdk/jdk/blob/eaae0baeba4f114805b0bc022525dfdbf1920cec/src/hotspot/os/linux/os_linux.cpp#L4706
+
 # grep '' /sys/fs/cgroup/system.slice/docker-*/cpu*
 
 services:

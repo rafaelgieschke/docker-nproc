@@ -16,12 +16,14 @@ services:
         nproc
         grep ^processor /proc/cpuinfo
         java /cwd/nproc.java
+        java -XX:ActiveProcessorCount=2 /cwd/nproc.java
         sleep inf
       '
     environment:
       _:
       OMP_NUM_THREADS: 4
       OMP_THREAD_LIMIT: 5
+      #JDK_JAVA_OPTIONS: -XX:ActiveProcessorCount=3
     #cpu_count: 3 # Windows only!
     #cpus: 7
     deploy:

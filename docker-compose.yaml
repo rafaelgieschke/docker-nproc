@@ -1,0 +1,33 @@
+# https://github.com/compose-spec/compose-spec/blob/master/spec.md
+# https://www.flamingspork.com/blog/2020/11/25/why-you-should-use-nproc-and-not-grep-proc-cpuinfo/
+# https://stackoverflow.com/questions/56682105/whats-the-difference-between-cpus-and-cpu-count-in-docker#comment99930605_56682105
+# https://github.com/coreutils/gnulib/blob/master/lib/nproc.c
+# https://www.openmp.org/spec-html/5.1/openmpse59.html#x325-5000006.2
+# https://www.openmp.org/spec-html/5.1/openmpse67.html#x333-5080006.10
+
+# grep '' /sys/fs/cgroup/system.slice/docker-*/cpu*
+
+services:
+  test:
+    image: eclipse-temurin:11
+    command: |
+      sh -xc '
+        env
+        nproc
+        grep ^processor /proc/cpuinfo
+        java /cwd/nproc.java
+        sleep inf
+      '
+    environment:
+      _:
+      OMP_NUM_THREADS: 4
+      OMP_THREAD_LIMIT: 5
+    #cpu_count: 3 # Windows only!
+    #cpus: 7
+    deploy:
+      resources:
+        limits:
+           cpus: "6"
+    volumes:
+    - .:/cwd
+    #- ./cpuinfo:/proc/cpuinfo
